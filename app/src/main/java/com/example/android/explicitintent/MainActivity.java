@@ -89,7 +89,18 @@ public class MainActivity extends AppCompatActivity {
      * @param v Button that was clicked.
      */
     public void onClickOpenAddressButton(View v) {
-        Toast.makeText(this, "TODO: Open a map when this button is clicked", Toast.LENGTH_SHORT).show();
+        String addressString = "1600 Amphitheatre Parkway, CA";
+        //geo: latitude, longitude?z=zoom ex. zoom=10
+        // when querying street addresses or businesses latitude and longitude must be 0,0
+        //geo: 0,0?q=streetaddress or business
+
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("geo")
+                .path("0,0")
+                .query(addressString);
+        Uri addressUri = builder.build();
+
+        showMap(addressUri);
     }
 
     /**
@@ -131,4 +142,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
     }
 
+    private void showMap(Uri geoLocation)
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(geoLocation);
+
+        if(intent.resolveActivity(getPackageManager())!=null)
+            startActivity(intent);
+    }
 }
