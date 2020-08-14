@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View v) {
+                String textEntered = mNameEntry.getText().toString();
                 /*
                  * Storing the Context in a variable in this case is redundant since we could have
                  * just used "this" or "MainActivity.this" in the method call below. However, we
@@ -62,20 +63,9 @@ public class MainActivity extends AppCompatActivity {
                  */
                 Context context = MainActivity.this;
                 Intent intent = new Intent(context, ChildActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, textEntered);
                 startActivity(intent);
             }
         });
     }
 }
-
-// TODO (1) Use Android Studio's Activity wizard to create a new Activity called ChildActivity
-
-// Do steps 2 - 5 in activity_child.xml
-// TODO (2) Change the ConstraintLayout to a FrameLayout and make appropriate adjustments
-// TODO (3) Add a TextView with an id value of @id/tv_display
-// TODO (4) Set the text to something that indicates this is default text being displayed
-// TODO (5) Make the text size a little larger
-
-// Do steps 6 & 7 in ChildActivity.java
-// TODO (6) Create a TextView field to display your message
-// TODO (7) Get a reference to your TextView in Java
