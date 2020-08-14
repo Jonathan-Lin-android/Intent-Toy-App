@@ -21,6 +21,33 @@
         android:id="@+id/b_do_something_cool"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:text="Child Activity"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:onClick="onClickOpenWebpageButton"
+        android:text="Open Website"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:onClick="onClickOpenAddressButton"
+        android:text="Open Location in Map"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:onClick="onClickShareTextButton"
+        android:text="Share Text Content"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:onClick="createYourOwn"
+        android:text="Create Your Own"/>
 </LinearLayout>
