@@ -19,6 +19,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.AlarmClock;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,6 +70,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // receiving an implicit intent and extracting the data. "alarm clock"
+        Intent intent = getIntent();
+        String str = intent.getStringExtra(AlarmClock.EXTRA_MESSAGE);
+        if ( str != null)
+            mNameEntry.setText(str);
+/*
+        Uri uri = intent.getData();
+        if (uri != null)
+        {
+            String uri_string = "URI: " + uri.toString();
+            mNameEntry.setText(uri_string);
+        }
+ */
     }
 
 
@@ -110,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
      * @param v Button that was clicked.
      */
     public void onClickShareTextButton(View v) {
-        Toast.makeText(this, "TODO: Share text when this is clicked", Toast.LENGTH_LONG).show();
+        String textToShare = "Hello there";
+        shareText(textToShare);
     }
 
     /**
@@ -123,10 +140,7 @@ public class MainActivity extends AppCompatActivity {
      * @param v Button that was clicked.
      */
     public void createYourOwn(View v) {
-        Toast.makeText(this,
-                "TODO: Create Your Own Implicit Intent",
-                Toast.LENGTH_SHORT)
-                .show();
+        createAlarm("test", 13, 30);
     }
 
     //implicit intent
@@ -149,5 +163,27 @@ public class MainActivity extends AppCompatActivity {
 
         if(intent.resolveActivity(getPackageManager())!=null)
             startActivity(intent);
+    }
+
+    private void shareText(String text)
+    {
+        String mimeType = "text/plain";
+        String title = "Learning How to Share";
+
+        ShareCompat.IntentBuilder.from(this)
+                .setChooserTitle(title)
+                .setType(mimeType)
+                .setText(text)
+                .startChooser();
+    }
+
+    public void createAlarm(String message, int hour, int minutes) {
+        Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
+                .putExtra(AlarmClock.EXTRA_MESSAGE, message)
+                .putExtra(AlarmClock.EXTRA_HOUR, hour)
+                .putExtra(AlarmClock.EXTRA_MINUTES, minutes);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }
